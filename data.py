@@ -40,11 +40,10 @@ def parse_schedule_html():
                     session_dict['session_type'] = cell.text.split('\n')[1].strip()
                     session_dict['session_section'] = klass
 
-                    for day_part in ['a.m.', 'p.m.']:
-                        if session_dict['end_time']:
-                            if day_part in session_dict['end_time']:
-                                if 'a.m.' not in session_dict['start_time']:
-                                    session_dict['start_time'] = '%s %s' % (session_dict['start_time'], day_part)
+                    if session_dict['end_time']:
+                        if 'p.m.' in session_dict['end_time']:
+                            if 'a.m.' not in session_dict['start_time']:
+                                session_dict['start_time'] = '%s p.m.' % session_dict['start_time']
 
                 if index == 1:
 
