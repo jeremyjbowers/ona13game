@@ -55,8 +55,8 @@ def parse_schedule_html():
                                             .replace(u'\u2019', "'")\
                                             .strip()
 
+                    session_dict['leaders'] = []
                     try:
-                        session_dict['leaders'] = []
                         for leader in cell.text.split('\n')[1].split('/'):
                             leader_dict = {}
                             leader_dict['name'] = leader.split(', ')[0].strip()
@@ -64,7 +64,7 @@ def parse_schedule_html():
                             session_dict['leaders'].append(leader_dict)
 
                     except IndexError:
-                        session_dict['leaders'] = None
+                    	pass
 
             output.append(session_dict)
 
