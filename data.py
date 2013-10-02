@@ -44,6 +44,8 @@ def parse_schedule_html():
                         if 'p.m.' in session_dict['end_time']:
                             if 'a.m.' not in session_dict['start_time']:
                                 session_dict['start_time'] = '%s p.m.' % session_dict['start_time']
+                        if 'a.m.' in session_dict['end_time']:
+                        	session_dict['start_time'] = '%s a.m.' % session_dict['start_time']
 
                 if index == 1:
 
