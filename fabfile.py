@@ -15,3 +15,6 @@ def load_restaurants():
 	"""
 	data.download_restaurant_html()
 	data.parse_restaurant_html()
+
+def geocode_restaurants():
+	data.geocode_restaurants()

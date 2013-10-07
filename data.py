@@ -38,11 +38,20 @@ def geocode_restaurants():
 
     for restaurant in restaurants:
         g = geocoders.GoogleV3()
-        list[places] = g.geocode(restaurant['address'], 'Atlanta', 'GA', exactly_one=False)
+        raw_places = list(g.geocode('%s %s %s' % (restaurant['address'], restaurant['city'], 'GA'), exactly_one=False))
+
+        places = []
+        for possible_place in raw_places:
+            place, (lat, lng) = possible_place
+            for city in ['Atlanta, GA', 'Decatur, GA', 'Smyrna, GA', 'Tucker, GA', 'Doraville, GA']:
+                if city in place:
+                    places.append(possible_place)
+
+        print places
         place, (lat, lng) = places[0]
         restaurant['lat'] = lat
         restaurant['lng'] = lng
-        restaurant['geocoded_address'] = place        
+        restaurant['geocoded_address'] = place
         geocoded.append(restaurant)
         time.sleep(1)
 
