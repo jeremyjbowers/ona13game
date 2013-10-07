@@ -3,6 +3,7 @@ import time
 
 from bs4 import BeautifulSoup
 from dateutil.parser import *
+from geopy import geocoders  
 from pytz import timezone
 import requests
 
@@ -29,6 +30,24 @@ def clean(text, **kwargs):
         text = text.replace(bad, good)
 
     return text.strip()
+
+def geocode_restaurants():
+    geocoded = []
+    with open('data/restaurants.json', 'rb') as readfile:
+        restaurants = json.loads(readfile.read())
+
+    for restaurant in restaurants:
+        g = geocoders.GoogleV3()
+        list[places] = g.geocode(restaurant['address'], 'Atlanta', 'GA', exactly_one=False)
+        place, (lat, lng) = places[0]
+        restaurant['lat'] = lat
+        restaurant['lng'] = lng
+        restaurant['geocoded_address'] = place        
+        geocoded.append(restaurant)
+        time.sleep(1)
+
+    with open('data/geocoded_restaurants.json', 'wb') as writefile:
+        writefile.write(json.dumps(geocoded))    
 
 def clean_restaurant_hours():
     cleaned = []
