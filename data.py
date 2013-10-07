@@ -30,6 +30,19 @@ def clean(text, **kwargs):
 
     return text.strip()
 
+def clean_restaurant_hours():
+    cleaned = []
+    with open('data/restaurants.json', 'rb') as readfile:
+        restaurants = json.loads(readfile.read())
+
+    for restaurant in restaurants:
+        if restaurant['hours']:
+            restaurant['hours'] = restaurant['hours'].strip()
+        cleaned.append(restaurant)
+
+    with open('data/clean_restaurants.json', 'wb') as writefile:
+        writefile.write(json.dumps(cleaned))
+
 def clean_restaurant_descriptions():
     cleaned = []
     with open('data/restaurants.json', 'rb') as readfile:
@@ -80,12 +93,12 @@ def parse_restaurant_html():
             soup = BeautifulSoup(r.content)
 
             try:
-                restaurant_dict['full_description'] = clean(soup.select('div.description .excerpt')[0].text, breaks=True) + ' ...'
+                restaurant_dict['full_description'] = clean(soup.select('div.description .excerpt')[0].text, breaks=True) + ' ...'.strip()
             except IndexError:
                 restaurant_dict['full_description'] = None
 
             try:
-                restaurant_dict['hours'] = soup.select('div.restaurant_data_indent')[0].text.replace('\n\n', '\n')
+                restaurant_dict['hours'] = soup.select('div.restaurant_data_indent')[0].text.replace('\n\n', '\n').strip()
             except IndexError:
                 restaurant_dict['hours'] = None
 
