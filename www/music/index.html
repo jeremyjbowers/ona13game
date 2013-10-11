@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="ico/favicon.png">
 
-    <title>Sticky Footer Template for Bootstrap</title>
+    <title>ONAmusic</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -39,7 +39,7 @@
 
         $scope.events;
 
-        $http.get('http://ws.audioscrobbler.com/2.0/?method=geo.getevents&location=atlanta&distance=25&api_key=72bbb5ba996d416ac522367aab4c6a5a&format=json').success(
+        $http.get('http://ws.audioscrobbler.com/2.0/?method=geo.getevents&location=atlanta&distance=25&limit=50&api_key=72bbb5ba996d416ac522367aab4c6a5a&format=json').success(
             function(data) {
             $scope.events = data.events.event;
             console.log(data.events.event[0].startDate);
@@ -61,9 +61,9 @@
           <!--list of local concerts-->
           <div ng-controller = 'eventscontroller'>
             <div ng-repeat="event in events">
-<!--               <img ng-src="{{event.image[0].text}}"> -->
+              <img ng-src="{{event.image[0].text}}">
               {{event.startDate}}
-              {{event.artists.artist[0]}}
+              <b>{{event.artists.artist[0]}}</b>
               <br />
               {{event.venue.name}}
               <hr />
@@ -78,7 +78,7 @@
 
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
+    ==================================================
     <!-- Placed at the end of the document so the pages load faster -->
   </body>
 </html>
