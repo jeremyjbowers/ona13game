@@ -37,16 +37,36 @@
       //var myIndex = 1; 
 
       $.each(data,function(artists, artists) {
+
+      if(nearby_restaurants = 0){
+        return false;
+      };
+
+      // if(restaurant = null){
+      //   return false;
+      // }
+
         console.log("hello");
         console.log(artists.artists);
         //console.log(myIndex);
         infoHTML += '<p>Artist: <b>' + artists.artists + '</b></p>';
         infoHTML += '<p>Venue: <b>' +artists.venue.name + '</b></p><p> Distance from Marriott Marquis: <b>' + artists.venue.distance_from_hotel + '</b> </p>';
+        infoHTML += '<p>Restaurants' + artists.nearby_restaurants[0].restaurant.title + '</p> <br />'
           // myIndex = $(this).index() + myIndex ;
           // console.log("myIndex= " + myIndex);
           //var d = data.fields
-          if(restaurant=0)
-          console.log(artists.nearby_restaurants[0].restaurant.title);
+
+          // else {console.log("jggj")};
+          
+          // if(restaurant = null ){
+          //   console.log("none");
+          // }
+
+          // if(title = ''){
+          //   console.log("none");
+          // }
+
+          console.log(artists.nearby_restaurants[0]);
 
 
         //for(var i=0; i<artists.nearby_restaurants[index])
