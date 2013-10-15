@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html ng-app lang="en">
+<html lang="en">
   <head>
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,39 +20,65 @@
     <!-- Custom styles for this template -->
 
     <script src="js/bootstrap.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/javascript-last.fm-api/lastfm.api.cache.js"></script>
-    <script src="js/javascript-last.fm-api/lastfm.api.js"></script>
-    <script src="js/javascript-last.fm-api/lastfm.api.md5.js"></script>
-
+    <!--<script src="js/angular.min.js"></script>-->
+    
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
   </head>
+  <script>
 
-  <body>
-    <script>
+    $.getJSON('../../data/events.json', listArtists);
+    function listArtists(data){
 
+      var infoHTML = ' ';
+      //var myIndex = 1; 
+
+      $.each(data,function(artists, artists) {
+        console.log("hello");
+        console.log(artists.artists);
+        //console.log(myIndex);
+        infoHTML += '<p>Artist: <b>' + artists.artists + '</b></p>';
+        infoHTML += '<p>Venue: <b>' +artists.venue.name + '</b></p><p> Distance from Marriott Marquis: <b>' + artists.venue.distance_from_hotel + '</b> </p>';
+          // myIndex = $(this).index() + myIndex ;
+          // console.log("myIndex= " + myIndex);
+          //var d = data.fields
+          if(restaurant=0)
+          console.log(artists.nearby_restaurants[0].restaurant.title);
+
+
+        //for(var i=0; i<artists.nearby_restaurants[index])
+        //infoHTML += '<p>Restaurants: <b>' + artists.nearby_restaurants[0].title + '</b></p><br />';
       
-      var events;       
+          
+        //console.log(artists[i].nearby_restaurants.restaurant.title[i])
+       });    
 
-      function eventscontroller($scope, $http){
+      $('#info').html(infoHTML);
+    };
 
-        $scope.events;
-
-        $http.get('http://ws.audioscrobbler.com/2.0/?method=geo.getevents&location=atlanta&distance=25&limit=50&api_key=72bbb5ba996d416ac522367aab4c6a5a&format=json').success(
-            function(data) {
-            $scope.events = data.events.event;
-            console.log(data.events.event[0].startDate);
-            $scope.artists = "Bono";
-            });
-
-      };
-
+//   $('#map_canvas').gmap().bind('init', function() { 
+//   // This URL won't work on your localhost, so you need to change it
+//   // see http://en.wikipedia.org/wiki/Same_origin_policy
+//   $.getJSON('../../data/events.json', function(data) { 
+//     $.each( data.markers, function(i, marker) {
+//       $('#map_canvas').gmap('addMarker', { 
+//         'position': new google.maps.LatLng(marker.latitude, marker.longitude), 
+//         'bounds': true 
+//       }).click(function() {
+//         $('#map_canvas').gmap('openInfoWindow', { 'content': marker.content }, this);
+//       });
+//     });
+//   });
+// });
 
     </script>
+
+
+  <body>
+    
     <!-- Wrap all page content here -->
     <div id="wrap">
 
@@ -58,23 +87,13 @@
         <div class="page-header">
           <h1>ONAmusic</h1>
           <br />
-          <!--list of local concerts-->
-          <div ng-controller = 'eventscontroller'>
-            <div ng-repeat="event in events">
-              <img ng-src="{{event.image[0].text}}">
-              {{event.startDate}}
-              <b>{{event.artists.artist[0]}}</b>
-              <br />
-              {{event.venue.name}}
-              <hr />
-            </div>
-          </div>
-        </div>
+          <div id="info"> </div>
+        
+      </div>
       </div>
     </div>
 
     <div id="footer">
-    </div>
 
 
     <!-- Bootstrap core JavaScript
