@@ -114,7 +114,7 @@ def parse_events_csv():
                     distances.append(distance_dict)
 
             print 'Found %s nearby restaurants.' % len(distances)
-            event_dict['nearby_restaurants'] = sorted(distances, key=lambda restaurant: restaurant['distance'], reverse=True)
+            event_dict['nearby_restaurants'] = sorted(distances, key=lambda restaurant: restaurant['distance'])
 
             events.append(event_dict)
 
