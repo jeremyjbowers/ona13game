@@ -94,8 +94,6 @@ def parse_events_csv():
             event_dict.pop('date')
             event_dict.pop('time')
 
-            event_dict['venue']['distance_from_hotel'] = 0.0
-
             distances = []
 
             with open('data/restaurants.json', 'rb') as readfile:
