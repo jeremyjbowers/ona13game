@@ -75,15 +75,15 @@ def parse_events_csv():
             event_dict['venue']['name'] = event_dict['venue_name']
             event_dict.pop('venue_name')
 
-            event_dict['venue']['lat'] = event_dict['venue_lat_lon'].split('|')[1]
-            event_dict['venue']['lng'] = event_dict['venue_lat_lon'].split('|')[0]
+            event_dict['venue']['lat'] = float(event_dict['venue_lat_lon'].split('|')[1])
+            event_dict['venue']['lng'] = float(event_dict['venue_lat_lon'].split('|')[0])
             event_dict.pop('venue_lat_lon')
 
             event_dict['venue']['distance_from_hotel'] = haversine(
                 float(event_dict['venue']['lat']),
                 float(event_dict['venue']['lng']),
-                33.7615262,
-                -84.385917)
+                -84.385917,
+                33.7615262)
 
             event_dict['timestamp'] = eastern.localize(
                                         parse("%s %s" % (
