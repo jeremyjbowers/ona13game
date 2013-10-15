@@ -1,11 +1,34 @@
+import csv
 import json
+from math import radians, cos, sin, asin, sqrt
 import time
 
 from bs4 import BeautifulSoup
 from dateutil.parser import *
-from geopy import geocoders  
+from geopy import geocoders
 from pytz import timezone
 import requests
+
+
+def haversine(lon1, lat1, lon2, lat2):
+    """
+    Calculate the great circle distance between two points
+    on the earth (specified in decimal degrees).
+    """
+    # convert decimal degrees to radians
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+
+    # haversine formula
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * asin(sqrt(a))
+
+    # Convert to KM
+    miles = 3961.0 * float(c)
+
+    return miles
+
 
 def clean(text, **kwargs):
     """
@@ -31,7 +54,79 @@ def clean(text, **kwargs):
 
     return text.strip()
 
+
+def get_events_csv():
+    r = requests.get('https://docs.google.com/spreadsheet/pub?key=0Any1XR8XqgwLdG8zNm4yeGZQaS1qalJqUjlIMV9fcUE&output=csv')
+    with open('data/events.csv', 'wb') as writefile:
+        writefile.write(r.content)
+
+
+def parse_events_csv():
+    events = []
+    eastern = timezone('US/Eastern')
+
+    with open('data/events.csv', 'rb') as readfile:
+        csvreader = csv.DictReader(readfile)
+
+        for event in csvreader:
+            event_dict = dict(event)
+
+            event_dict['venue'] = {}
+            event_dict['venue']['name'] = event_dict['venue_name']
+            event_dict.pop('venue_name')
+
+            event_dict['venue']['lat'] = event_dict['venue_lat_lon'].split('|')[1]
+            event_dict['venue']['lng'] = event_dict['venue_lat_lon'].split('|')[0]
+            event_dict.pop('venue_lat_lon')
+
+            event_dict['timestamp'] = eastern.localize(
+                                        parse("%s %s" % (
+                                            event_dict['date'],
+                                            event_dict['time']),
+                                        ignoretz=True))
+            event_dict['timestamp'] = time.mktime(event_dict['timestamp'].timetuple())
+            event_dict.pop('date')
+            event_dict.pop('time')
+
+            event_dict['venue']['distance_from_hotel'] = 0.0
+
+            distances = []
+
+            with open('data/restaurants.json', 'rb') as readfile:
+                restaurants = json.loads(readfile.read())
+
+            print 'Looping over restaurants.'
+            for restaurant in restaurants:
+                distance_dict = {}
+                distance_dict['restaurant'] = dict(restaurant)
+
+                # Loops over every restaurant and calculates the haversine
+                # distance between this venue and the restaurant.
+                # If a restaurant is within a half mile, we add it to the nearby
+                # restaurants list.
+                distance_dict['distance'] = haversine(
+                    float(event_dict['venue']['lat']),
+                    float(event_dict['venue']['lng']),
+                    float(restaurant['lat']),
+                    float(restaurant['lng']))
+
+                if distance_dict['distance'] < 0.5:
+                    distances.append(distance_dict)
+
+            print 'Found %s nearby restaurants.' % len(distances)
+            event_dict['nearby_restaurants'] = sorted(distances, key=lambda restaurant: restaurant['distance'], reverse=True)
+
+            events.append(event_dict)
+
+    with open('data/events.json', 'wb') as writefile:
+        writefile.write(json.dumps(events))
+
 def geocode_restaurants():
+    """
+    Loops over restaurants in the JSON file and geocodes them.
+    Writes to a separate file.
+    Combine or replace manually.
+    """
     geocoded = []
     with open('data/restaurants.json', 'rb') as readfile:
         restaurants = json.loads(readfile.read())
@@ -56,9 +151,15 @@ def geocode_restaurants():
         time.sleep(1)
 
     with open('data/geocoded_restaurants.json', 'wb') as writefile:
-        writefile.write(json.dumps(geocoded))    
+        writefile.write(json.dumps(geocoded))
+
 
 def clean_restaurant_hours():
+    """
+    Handles formatting for the restaurant's hours.
+    Writes to a separate file.
+    Combine or replace manually.
+    """
     cleaned = []
     with open('data/restaurants.json', 'rb') as readfile:
         restaurants = json.loads(readfile.read())
@@ -71,7 +172,13 @@ def clean_restaurant_hours():
     with open('data/clean_restaurants.json', 'wb') as writefile:
         writefile.write(json.dumps(cleaned))
 
+
 def clean_restaurant_descriptions():
+    """
+    Handles formatting for restaurant descriptions.
+    Writes to a separate file.
+    Combine or replace manually.
+    """
     cleaned = []
     with open('data/restaurants.json', 'rb') as readfile:
         restaurants = json.loads(readfile.read())
@@ -85,7 +192,12 @@ def clean_restaurant_descriptions():
     with open('data/clean_restaurants.json', 'wb') as writefile:
         writefile.write(json.dumps(cleaned))
 
+
 def parse_restaurant_html():
+    """
+    Read downloaded restaurant HTML from the Access Atlanta search site.
+    Writes a JSON file.
+    """
     ROOT_URL = 'http://entertainment.accessatlanta.com'
 
     restaurants = []
@@ -135,20 +247,33 @@ def parse_restaurant_html():
     with open('data/restaurants.json', 'wb') as writefile:
         writefile.write(json.dumps(restaurants))
 
+
 def download_restaurant_html():
+    """
+    Downloads restaurant HTML for various classifications of restaurants.
+    """
     for star in [3,4,5]:
         r = requests.get('http://entertainment.accessatlanta.com/search?critic_stars=%s&new=n&sort=0&srad=10.0&srss=250&st=restaurant&st_select=restaurant&swhat=&swhen=&swhere=265+Peachtree+Center+Ave+NE+Atlanta+GA+30303' % star)
 
         with open('data/%s-stars.html' % star, 'wb') as writefile:
             writefile.write(r.content)
 
+
 def download_schedule_html():
+    """
+    Downloads the ONA13 schedule.
+    """
     r = requests.get('http://ona13.journalists.org/program/schedule/')
 
     with open('data/schedule.html', 'wb') as writefile:
         writefile.write(r.content)
 
+
 def parse_schedule_html():
+    """
+    Parses the downloaded schedule HTML.
+    Writes to a JSON file.
+    """
     with open('data/schedule.html', 'rb') as readfile:
         soup = BeautifulSoup(readfile.read())
 
@@ -192,7 +317,7 @@ def parse_schedule_html():
                                 session_dict['time']['start_time_string'] = '%s p.m.' % session_dict['time']['start_time_string']
 
                         if 'a.m.' in session_dict['time']['end_time_string']:
-                            session_dict['time']['start_time_string'] = '%s a.m.' % session_dict['time']['start_time_string']                           
+                            session_dict['time']['start_time_string'] = '%s a.m.' % session_dict['time']['start_time_string']
 
                     session_dict['time']['start_time_string'] = session_dict['time']['start_time_string'].replace('p.m. p.m.', 'a.m.')
 
