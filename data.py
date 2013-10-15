@@ -79,11 +79,11 @@ def parse_events_csv():
             event_dict['venue']['lng'] = float(event_dict['venue_lat_lon'].split('|')[0])
             event_dict.pop('venue_lat_lon')
 
-            event_dict['venue']['distance_from_hotel'] = float(haversine(
-                float(event_dict['venue']['lat']),
+            event_dict['venue']['distance_from_hotel'] = haversine(
                 float(event_dict['venue']['lng']),
+                float(event_dict['venue']['lat']),
                 -84.385917,
-                33.7615262))
+                33.7615262)
 
             event_dict['timestamp'] = eastern.localize(
                                         parse("%s %s" % (
@@ -111,12 +111,12 @@ def parse_events_csv():
                 # If a restaurant is within a half mile, we add it to the nearby
                 # restaurants list.
                 distance_dict['distance'] = haversine(
-                    float(event_dict['venue']['lat']),
                     float(event_dict['venue']['lng']),
-                    float(restaurant['lat']),
-                    float(restaurant['lng']))
+                    float(event_dict['venue']['lat']),
+                    float(restaurant['lng']),
+                    float(restaurant['lat']))
 
-                if distance_dict['distance'] < 0.5:
+                if distance_dict['distance'] < 1.0:
                     distances.append(distance_dict)
 
             print 'Found %s nearby restaurants.' % len(distances)
