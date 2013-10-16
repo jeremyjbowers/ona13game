@@ -58,6 +58,7 @@
       <h3><%= evnt.artists %></h3>
       <p>Venue: <%= evnt.venue.name %></p>
       <p>Distance: <%= evnt.venue.distance_from_hotel.toFixed(2) %> miles</p>
+      <p><img src="<%= evnt.venue.map_img %>" /></p>
       <% if (evnt.nearby_restaurants_count > 0){ %>
       <p><ul>
         <% _.each(evnt.nearby_restaurants, function(r, idx, list){ %>
