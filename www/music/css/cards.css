@@ -21,15 +21,11 @@
 
 .card{
 	border: 1px solid black;
-	height: 200px;
 	width: 100%;
 	margin-bottom: 10px;
 	font-family: 'Source Sans Pro';
-	padding: 5px;
+	padding: 20px;
 	border-radius: 5px;
-		-moz-box-shadow: 2px 2px 2px #888;
-		-webkit-box-shadow: 2px 2px 2px #888;
-	box-shadow: 2px 2px 2px #888;
 }
 
 .card h1{
@@ -37,7 +33,17 @@
 }
 
 .card a{
-	text-decoration: underline;
+	text-decoration: none;
+	color:black;
+}
+
+.card ul{
+	margin: -10px;
+	padding: 0;
+}
+
+.card li{
+	list-style-type: none;
 }
 
 /* where we'll put the maps */
@@ -47,5 +53,9 @@
 	width: 50%;
 	margin-bottom: 10px;
 	border-radius: 5px;
+}
+
+.cardRestaurant{
+	/*float: right;*/
 }
 
