@@ -92,6 +92,13 @@ def parse_events_csv():
                 -84.385917,
                 33.7615262)
 
+            event_dict['venue']['map_img'] = 'https://api.tiles.mapbox.com/v3/examples.map-vyofok3q/pin-l-monument+C44(%s,%s)/%s,%s,13/400x300.png' % (
+                event_dict['venue']['lng'],
+                event_dict['venue']['lat'],
+                event_dict['venue']['lng'],
+                event_dict['venue']['lat']
+            )
+
             event_dict['timestamp'] = eastern.localize(
                                         parse("%s %s" % (
                                             event_dict['date'],
