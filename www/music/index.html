@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript" src="js/popcorn-complete.min.js"></script>
-
-
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -16,273 +9,17 @@
 
     <title>ONAmusic</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-
-    <script src="js/bootstrap.js"></script>
-    <!--<script src="js/angular.min.js"></script>-->
-    
+    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
   </head>
-  <script>
-
-    $.getJSON('../../data/events.json', listArtists);
-    function listArtists(data){
-
-      var infoHTML = ' ';
-      var myIndex =0 ; 
-
-      $.each(data,  function(artists, artists) {
-        console.log( "Lenght of nearby_restaurants = " + artists.nearby_restaurants_count)
-
-
-        console.log("hello");
-        console.log(artists.artists);
-        //console.log(myIndex);
-        infoHTML += '<hr /><h3>' + artists.artists + '</b></h3>';
-        infoHTML += '<p>Venue: <b>' +artists.venue.name + '</b></p><p> Distance from Marriott Marquis: <b>' + artists.venue.distance_from_hotel + '</b> </p><br /><h3>Restaurants Closeby</h3>';
-
-
-        if(artists.nearby_restaurants_count == 0){
-        console.log("false to nearby_restaurants")
-        //return false;
-        infoHTML += "<p>Restaurants: Sorry, there are no restaurants in the area.</p> <br />";
-      }else{
-        //console.log(index)
-
-        for (var i=0;i<artists.nearby_restaurants_count;i++){
-
-        infoHTML += '<ul><li> ' + artists.nearby_restaurants[i].restaurant.title + '</li></ul>'
-
-      };
-      };
-
-        
-       });    
-
-      $('#info').html(infoHTML);
-    };
-
-
-
-    </script>
-
-    <!--popcorn script-->
-     <script>
-      // ensure the web page (DOM) has loaded
-      document.addEventListener("DOMContentLoaded", function () {
- 
-         // Create a popcorn instance by calling the Vimeo player plugin
-         var example = Popcorn.vimeo(
-         '#video',
-         'http://player.vimeo.com/video/76991191');
-
-         example.timeline({
-          start: 1,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: 
-          "<h3>ONA13 Music in Atlanta</h3><p>Welcome to ONA13!</p><p>Wondering how you're going to fill your nights in the A? Never fear! We're here to help with some great local shows and restaurants around town.</p>",
-          direction: "up,"
-
-         });
-         //Ruby Velle & The Soulphonics
-         example.timeline({
-          start: 10,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>THURSDAY</h4><h2>ONA Presents:</h2><h1>Ruby Velle & The Soulphonics</h1>",
-          direction: "up",
-         });
-
-         //Atlas Genius
-         example.timeline({
-          start: 19,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>THURSDAY</h4><h2>Atlas Genius</h2><h3>Center Stage Theater at 8:30</h3>",
-          direction: "up",
-         });
-
-        //Wild Belle
-        example.timeline({
-          start: 33,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>THURSDAY</h4><h2>Wild Belle & Snowmine</h2><h3>The EARL at 9:00</h3>",
-          direction: "up",
-         });
-
-        //Cherry Poppin Daddies
-        example.timeline({
-          start: 51,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>THURSDAY</h4><h2>Cherry Poppin Daddies</h2><h3>Smith's Olde Bar at 8:00</h3>",
-          direction: "up",
-         });
-        //friday
-        example.timeline({
-          start: 67,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h1>FRIDAY</h4>",
-          direction: "up",
-         });
-        //Larkin Poe
-        example.timeline({
-          start: 69,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>FRIDAY</h4><h2>Larkin Poe</h2><h3>Eddie's Attic at 7:00</h3>",
-          direction: "up",
-         });
-        //The Whigs
-        example.timeline({
-          start: 89,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>FRIDAY</h4><h2>The Whigs</h2><h3>Terminal West at 9:00</h3>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 102,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>FRIDAY</h4><h2>Patty Griffin</h2><h3>Buckhead Theatre at 8:00</h3>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 112,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>FRIDAY</h4><h2>Ben Rector</h2><h3>Smith's Olde Bar at 8:00</h3>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 127,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h1>SATURDAY</h1>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 129,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>SATRDAY</h4><h2>Guitar Wolf</h2><h3>Drunken Unicorn at 9:00</h3>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 139,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>SATURDAY</h4><h2>Lucius</h2><h3>The EARL at 8:00</h3>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 155,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>SATURDAY</h4><h2>Todd Carey</h2><h3>Smith's Olde Bar at 8:00</h3>",
-          direction: "up",
-         });
-
-
-        example.timeline({
-          start: 167,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h1>SUNDAY</h1>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 169,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>SUNDAY</h4><h2>Kris Kristofferson</h2><h3>Atlanta Symphony Hall at 7:30</h3>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 180,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>SUNDAY</h4><h2>Grupo Fantasma</h2><h3>The EARL at 8:00</h3>",
-          direction: "up",
-         });
-
-        example.timeline({
-          start: 195,
-          target: "timeline",
-          title: " ",
-          text: " ",
-          innerHTML: "<h4>SUNDAY</h4><h2>Poor Old Shine</h2><h3>Eddie's Attic at 8:00</h3>",
-          direction: "up",
-         });
-
-        //});
-
-
-         // .timeline({
-         //  start: 33,
-         // })
-
-         // .timeline({
-         //  start: 51,
-         // })
-
-         // .timeline({
-
-         // })
- 
-         // add a footnote at 2 seconds, and remove it at 6 seconds
-         // example.footnote({
-         //   start: 2,
-         //   end: 6,
-         //   text: "Pop!",
-         //   target: "footnotediv"
-         // });
- 
-         // play the video right away
-         example.play();
- 
-      }, false);
-    </script>
-
 
   <body>
-    
+
     <!-- Wrap all page content here -->
     <div id="wrap">
 
@@ -303,20 +40,42 @@
           </div><!--col-->
         </div><!--row-->
         <hr />
-        
+
 
         <!--begin JSON write-->
         <div id="info"> </div>
-        
+
       </div>
       </div>
     </div>
 
-    <div id="footer">
+    <div id="footer"></div>
 
+    <!-- This is the underscore template -->
+    <!-- evnt is a single event -->
+    <!-- Read more about this in app.js! -->
+    <script class="template-event">
+      <h3><%= evnt.artists %></h3>
+      <p>Venue: <%= evnt.venue.name %></p>
+      <p>Distance: <%= evnt.venue.distance_from_hotel.toFixed(2) %> miles</p>
+      <% if (evnt.nearby_restaurants_count > 0){ %>
+      <p><ul>
+        <% _.each(evnt.nearby_restaurants, function(r, idx, list){ %>
+            <li><%= r.restaurant.title %></li>
+        <% }); %>
+      </ul></p>
+      <% } %>
+    </script>
 
-    <!-- Bootstrap core JavaScript
-    ==================================================
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Load all of our JS down here -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+    <script type="text/javascript" src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/popcorn-complete.min.js"></script>
+
+    <!-- Put our app in two files; app.js for the event stuff, and app-popcorn for your popcorn stuff. -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/app-popcorn.js"></script>
   </body>
 </html>
