@@ -75,9 +75,16 @@ def parse_events_csv():
             event_dict['venue']['name'] = event_dict['venue_name']
             event_dict.pop('venue_name')
 
-            event_dict['venue']['lat'] = float(event_dict['venue_lat_lon'].split('|')[1])
-            event_dict['venue']['lng'] = float(event_dict['venue_lat_lon'].split('|')[0])
-            event_dict.pop('venue_lat_lon')
+            event_dict['venue']['address'] = event_dict['venue_address_string']
+            event_dict.pop('venue_address_string')
+
+            g = geocoders.GoogleV3()
+            places = list(g.geocode(event_dict['venue']['address'], exactly_one=False))
+
+            place, (lat, lng) = places[0]
+            event_dict['venue']['lat'] = lat
+            event_dict['venue']['lng'] = lng
+            event_dict['venue']['geocoded_address'] = place
 
             event_dict['venue']['distance_from_hotel'] = haversine(
                 float(event_dict['venue']['lng']),
@@ -94,12 +101,13 @@ def parse_events_csv():
             event_dict.pop('date')
             event_dict.pop('time')
 
+            time.sleep(0.5)
+
             distances = []
 
             with open('data/restaurants.json', 'rb') as readfile:
                 restaurants = json.loads(readfile.read())
 
-            print 'Looping over restaurants.'
             for restaurant in restaurants:
                 distance_dict = {}
                 distance_dict['restaurant'] = dict(restaurant)
@@ -117,7 +125,6 @@ def parse_events_csv():
                 if distance_dict['distance'] < 1.0:
                     distances.append(distance_dict)
 
-            print 'Found %s nearby restaurants.' % len(distances)
             event_dict['nearby_restaurants'] = sorted(distances, key=lambda restaurant: restaurant['distance'])
             event_dict['nearby_restaurants_count'] = len(distances)
 
