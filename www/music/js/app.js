@@ -14,12 +14,16 @@ $(document).ready(function(){
 
         // Log to the console. FOR SCIENCE.
         console.log(e);
+        var date = new Date(e.timestamp*1000);
+        console.log(date);
 
         // This is the tricksy part.
         // Templates are better than string appending.
         // I stored a template in the HTML in a script tag.
         // Read about Underscore templates; they are the Lord's work.
         var compiled = _.template($('script.template-event').html());
+        
+
 
         // Append the compiled template to div#info.
         // Also, compile the template with a variable called 'evnt'

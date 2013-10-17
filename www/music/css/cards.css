@@ -20,7 +20,7 @@
 }
 
 .card{
-	border: 1px solid black;
+	border: 1px solid #aaaaaa;
 	width: 100%;
 	margin-bottom: 10px;
 	font-family: 'Source Sans Pro';
@@ -38,7 +38,6 @@
 }
 
 .card ul{
-	margin: -10px;
 	padding: 0;
 }
 
@@ -56,6 +55,6 @@
 }
 
 .cardRestaurant{
-	/*float: right;*/
+	padding: 20px;
 }
 
