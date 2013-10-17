@@ -58,6 +58,12 @@ $(document).ready(function(){
     count_visible_cards();
   });
 
+  // Want Grub? Click the button and a list of restaurants will show up.
+  $('#wrap').on('click', '.restaurant-toggle', function(){
+    console.log($(this));
+    $(this).next('.restaurant-list').slideToggle('fast');
+  });
+
   var count_visible_cards = function(){
 
     // Find all of the card divs that aren't hidden.

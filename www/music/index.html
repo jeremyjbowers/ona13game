@@ -76,11 +76,11 @@
 
         <% if (evnt.nearby_restaurants_count > 0){ %>
         <p class="restaurant-toggle">Grab some grub before the show</p>
-        <% _.each(evnt.nearby_restaurants, function(r, idx, list){ %>
         <ul class="restaurant-list">
+        <% _.each(evnt.nearby_restaurants, function(r, idx, list){ %>
           <li><a href="<%= r.restaurant.detail_url %>"><strong><%= r.restaurant.title %></strong></a>: <%= r.restaurant.stars %> stars<small><%= r.restaurant.hours %></small></li>
-        </ul>
         <% }); %>
+        </ul>
         <% } %>
       </div>
     </script>
