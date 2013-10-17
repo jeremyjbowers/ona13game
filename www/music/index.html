@@ -119,7 +119,7 @@
           <strong>Address</strong>: <a href="http://maps.google.com/maps?q=<%= evnt.venue.address %>" target="_blank"><%= evnt.venue.name %>, <%= evnt.venue.address %></a><br/>
           <strong>Distance</strong>: <%= evnt.venue.distance_from_hotel.toFixed(2) %> miles from the Marquis
         </p>
-        <p>a href="http://maps.google.com/maps?q=<%= evnt.venue.address %>" target="_blank"><img class="locator" src="<%= evnt.venue.map_img %>"/></a></p>
+        <p><a href="http://maps.google.com/maps?q=<%= evnt.venue.address %>" target="_blank"><img class="locator" src="<%= evnt.venue.map_img %>"/></a></p>
 
         <% if (evnt.nearby_restaurants_count > 0){ %>
         <p class="restaurant-toggle">Grab some grub before the show</p>

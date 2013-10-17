@@ -52,7 +52,6 @@ h2, h2, h3, h4, h5 {
     padding: 20px;
     min-height: 525px;
 }
-
 .card h1{
     color: #306;
 }
@@ -61,9 +60,13 @@ h2, h2, h3, h4, h5 {
     font-size: 0.9em;
     text-transform: uppercase;
 }
-.card a{
+.card a {
+    text-decoration: underline;
+    color: black;
+}
+.card a:hover {
     text-decoration: none;
-    color:black;
+    color: #777;
 }
 
 .card ul{
@@ -130,14 +133,6 @@ button.btn-lg.selected {
         float: none;
         margin: 0px !important;
     }
-}
-@media (max-width: 480px){
-    .card {
-        width: 100%;
-        margin-right: 0px;
-    }
-}
-@media (max-width: 385px){
     button.btn-lg {
         width: 100%;
         display: block;
@@ -146,4 +141,12 @@ button.btn-lg.selected {
     #count-target {
         margin: 20px 0 !important;
     } 
+}
+@media (max-width: 480px){
+    .card {
+        width: 100%;
+        margin-right: 0px;
+    }
+}
+@media (max-width: 385px){
 }
