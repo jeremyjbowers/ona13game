@@ -16,6 +16,23 @@
   overflow: scroll;
 }
 
+.video-player a{
+  text-decoration: none;
+  color: #000;
+
+}
+.video-player h3{
+  font-size: 1.7em;
+}
+
+.youtube{
+  border: 1px solid grey;
+  margin: 0 0 2px 0;
+  padding: 0 10px 0 10px;
+}
+
+.youtube 
+
 
 article,
 aside,

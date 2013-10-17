@@ -67,6 +67,12 @@ $(document).ready(function(){
     $('#count-target h2').text(String(visible_cards.length) + ' events happening.');
   };
 
+  $('.youtube').on('click', function(){
+    var url = $(this).attr('data-url');
+    $('iframe').attr('src', url);
+    //$('div.youtube').text(String(url));
+  })
+
 });
 
 window.slugify = function(t){
