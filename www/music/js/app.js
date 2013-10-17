@@ -83,6 +83,8 @@ $(document).ready(function(){
   $('.youtube').on('click', function(){
     var url = $(this).attr('data-url');
     $('iframe').attr('src', url);
+    $('.youtube').removeClass('selected')
+    $(this).addClass('selected');
     //$('div.youtube').text(String(url));
   })
 
