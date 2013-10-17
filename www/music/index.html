@@ -42,11 +42,12 @@
         </div><!--row-->
         <hr />
         <div class="row">
-          <h4 id="count-target" class="right"></h4>
+          <button type="button" class="selected btn btn-default btn-lg" data-date-slice="8">Show all</button>
           <button type="button" class="btn btn-default btn-lg" data-date-slice="4">Thursday</button>
           <button type="button" class="btn btn-default btn-lg" data-date-slice="5">Friday</button>
           <button type="button" class="btn btn-default btn-lg" data-date-slice="6">Saturday</button>
           <button type="button" class="btn btn-default btn-lg" data-date-slice="0">Sunday</button>
+          <h4 id="count-target" class="right"></h4>
       </div>
       <div class="row">
         <!--begin JSON write-->
@@ -64,10 +65,10 @@
     <!-- Read more about this in app.js! -->
     <script class="template-event">
       <div id="<%= slugify(evnt.artists) %>" class="card day-<%= evnt.timestamp_slice %>">
-        <h4 class="kicker"><%= evnt.timestamp_string %> at <%= evnt.venue.name %></h4>
+        <h4 class="kicker"><%= evnt.timestamp_string %></h4>
         <h3><%= evnt.artists %></h3>
         <p>
-          <strong>Address</strong>: <%= evnt.venue.address %><br/>
+          <strong>Address</strong>: <%= evnt.venue.name %>, <%= evnt.venue.address %><br/>
           <strong>Distance</strong>: <%= evnt.venue.distance_from_hotel.toFixed(2) %> miles from the Marquis
         </p>
         <p><img class="locator" src="<%= evnt.venue.map_img %>"/></p>

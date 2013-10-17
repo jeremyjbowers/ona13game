@@ -49,14 +49,17 @@ $(document).ready(function(){
     // remove that class from its siblings if it exists
     $(this).addClass('selected').siblings('.selected').removeClass('selected');
 
-    // Convert that day slice into the class of cards that we want to hide.
-    var day_slice_class = 'div.day-' + day_slice;
-
-    // Hide all cards, since we only want to show certain ones.
-    $('div.card').hide();
-
-    // Show just our event days.
-    $(day_slice_class).show();
+    var day_slice_class;
+    if (day_slice < 7){
+      // Convert that day slice into the class of cards that we want to hide.
+      day_slice_class = 'div.day-' + day_slice;      
+      // Hide all cards, since we only want to show certain ones.
+      $('div.card').hide();
+      // Show just our event days.
+      $(day_slice_class).show();
+    } else { // SHOW ALL SHOW ALL SHOW ALL
+      $('div.card').show();
+    }
 
     // Count what's visible.
     count_visible_cards();

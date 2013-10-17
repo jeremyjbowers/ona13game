@@ -19,6 +19,11 @@
   src: local('Source Sans Pro Black'), local('SourceSansPro-Black'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v6/toadOcfmlt9b38dHJxOBGC7eGk4PJkA83J1AXCmgUfc.woff) format('woff');
 }
 
+body {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 body,
 h1, h2, h3, h4, h5, p {
     font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
@@ -41,7 +46,7 @@ h2, h2, h3, h4, h5 {
     margin-bottom: 10px;
     margin-right: 1%;
     padding: 20px;
-    min-height: 520px;
+    min-height: 525px;
 }
 
 .card h1{
@@ -98,6 +103,7 @@ button.btn-lg {
     margin: 10px -4px 10px 0;
     border-radius: 0px;
     background-color: #EEE;
+    float: left;
 }
 button.btn-lg.selected {
     -webkit-box-shadow: inset 0px 0px 10px #999;
@@ -111,13 +117,26 @@ button.btn-lg.selected {
         width: 48%;
     }
 }
-@media (max-width: 480px){
-    body {
-        padding-left: 10px;
-        padding-right: 10px;
+@media (max-width: 700px){
+    .left,
+    .right {
+        float: none;
+        margin: 0px !important;
     }
+}
+@media (max-width: 480px){
     .card {
         width: 100%;
         margin-right: 0px;
     }
+}
+@media (max-width: 385px){
+    button.btn-lg {
+        width: 100%;
+        display: block;
+        margin: 0px 0px -1px;
+    }
+    #count-target {
+        margin: 20px 0 !important;
+    } 
 }
