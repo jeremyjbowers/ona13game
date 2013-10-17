@@ -19,45 +19,85 @@
   src: local('Source Sans Pro Black'), local('SourceSansPro-Black'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v6/toadOcfmlt9b38dHJxOBGC7eGk4PJkA83J1AXCmgUfc.woff) format('woff');
 }
 
-.card{
-	border: 1px solid #aaaaaa;
-	width: 100%;
-	margin-bottom: 10px;
-	font-family: 'Source Sans Pro';
-	padding: 20px;
-	border-radius: 5px;
+body,
+h1, h2, h3, h4, h5, p {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+}
+
+h2, h2, h3, h4, h5 {
+    font-weight: 800;
+}
+
+.card {
+    border: 1px solid #ccc;
+    float: left;
+    width: 32%;
+    margin-bottom: 10px;
+    margin-right: 1%;
+    padding: 10px 20px;
+    min-height: 520px;
 }
 
 .card h1{
-	color: #306;
+    color: #306;
 }
-
+.card h3 {
+    margin: 0px 0px 5px;
+}
+.card h4.kicker {
+    font-weight: normal;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
 .card a{
-	text-decoration: none;
-	color:black;
+    text-decoration: none;
+    color:black;
 }
 
 .card ul{
-	padding: 0;
+    padding: 0;
 }
 
 .card li{
-	list-style-type: none;
+    list-style-type: none;
 }
-
-/* where we'll put the maps */
-.cardMapBox{
-	border:1px solid black;
-	height: 50px;
-	width: 50%;
-	margin-bottom: 10px;
-	border-radius: 5px;
+.card .locator {
+    width: 100%;
+    max-width: 100%;
 }
-
-.cardRestaurant{
-	padding: 20px;
+.card .restaurant-toggle {
+    color: #444;
+    background-color: #eee;
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.card .restaurant-toggle:hover {
+    color: #111;
+    background-color: #e3e3e3;
+}
+.card .restaurant-list {
+    display: none;
 }
 .card small {
     display:block;
     padding: 0 0 0 15px;
+}
+@media (max-width: 700px){
+    .card {
+        width: 48%;
+    }
+}
+@media (max-width: 480px){
+    body {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .card {
+        width: 100%;
+        margin-right: 0px;
+    }
 }
