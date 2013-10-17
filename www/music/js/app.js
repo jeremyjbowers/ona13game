@@ -45,6 +45,10 @@ $(document).ready(function(){
     // Get the day slice from the button. This is like 0 = Sunday, etc.
     var day_slice = $(this).attr('data-date-slice');
 
+    // add a class that shows that it's a selected button,
+    // remove that class from its siblings if it exists
+    $(this).addClass('selected').siblings('.selected').removeClass('selected');
+
     // Convert that day slice into the class of cards that we want to hide.
     var day_slice_class = 'div.day-' + day_slice;
 
@@ -70,7 +74,7 @@ $(document).ready(function(){
     var visible_cards = $('div.card').not(':hidden');
 
     // Write the card text to the H2 we previously made and replace text in there.
-    $('#count-target h2').text(String(visible_cards.length) + ' events happening.');
+    $('#count-target').text(String(visible_cards.length) + ' events happening');
   };
 
 });

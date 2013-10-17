@@ -26,23 +26,26 @@ h1, h2, h3, h4, h5, p {
 
 h2, h2, h3, h4, h5 {
     font-weight: 800;
+    margin: 0px 0px 5px;
 }
-
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
 .card {
     border: 1px solid #ccc;
     float: left;
     width: 32%;
     margin-bottom: 10px;
     margin-right: 1%;
-    padding: 10px 20px;
+    padding: 20px;
     min-height: 520px;
 }
 
 .card h1{
     color: #306;
-}
-.card h3 {
-    margin: 0px 0px 5px;
 }
 .card h4.kicker {
     font-weight: normal;
@@ -85,6 +88,23 @@ h2, h2, h3, h4, h5 {
 .card small {
     display:block;
     padding: 0 0 0 15px;
+}
+#count-target {
+    margin: 20px;
+}
+button.btn-lg {
+    font-size: 1em;
+    text-transform: uppercase;
+    margin: 10px -4px 10px 0;
+    border-radius: 0px;
+    background-color: #EEE;
+}
+button.btn-lg.selected {
+    -webkit-box-shadow: inset 0px 0px 10px #999;
+    -moz-box-shadow: inset 0px 0px 10px #999;
+    box-shadow: inset 0px 0px 10px #999;
+    border: 1px solid #aaa;
+    background: white;
 }
 @media (max-width: 700px){
     .card {
