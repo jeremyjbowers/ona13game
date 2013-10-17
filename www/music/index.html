@@ -66,30 +66,30 @@
     <!-- evnt is a single event -->
     <!-- Read more about this in app.js! -->
     <script class="template-event">
-      <div class="card day-<%= evnt.timestamp_slice %>">
-      <div class="row">
-      <div class="col-md-6">
-      <h3><%= evnt.artists %></h3>
-      <h4><%= evnt.timestamp_string %> at <%= evnt.venue.name %></h4>
-      <p>
-        <strong>Address</strong>: <%= evnt.venue.address %><br/>
-        <strong>Distance</strong>: <%= evnt.venue.distance_from_hotel.toFixed(2) %> miles from the Marquis
-      </p>
-      <p><img style="height: 225px; width: 300px;" src="<%= evnt.venue.map_img %>"/></p>
-      <% if (evnt.nearby_restaurants_count > 0){ %>
+      <div id="<%= slugify(evnt.artists) %>" class="card day-<%= evnt.timestamp_slice %>">
+        <div class="row">
+        <div class="col-md-6">
+        <h3><%= evnt.artists %></h3>
+        <h4><%= evnt.timestamp_string %> at <%= evnt.venue.name %></h4>
+        <p>
+          <strong>Address</strong>: <%= evnt.venue.address %><br/>
+          <strong>Distance</strong>: <%= evnt.venue.distance_from_hotel.toFixed(2) %> miles from the Marquis
+        </p>
+        <p><img style="height: 225px; width: 300px;" src="<%= evnt.venue.map_img %>"/></p>
+        <% if (evnt.nearby_restaurants_count > 0){ %>
+          </div>
+          <div class="col-md-offset-7">
+          <div class="cardRestaurant">
+          <h4>Restaurants Nearby</h4>
+        <p><ul>
+          <% _.each(evnt.nearby_restaurants, function(r, idx, list){ %>
+              <li><a href="<%= r.restaurant.detail_url %>"><strong><%= r.restaurant.title %></strong></a>: <%= r.restaurant.stars %> stars
+              <small><%= r.restaurant.hours %></small></li>
+          <% }); %>
+        </ul></p>
+        <% } %>
         </div>
-        <div class="col-md-offset-7">
-        <div class="cardRestaurant">
-        <h4>Restaurants Nearby</h4>
-      <p><ul>
-        <% _.each(evnt.nearby_restaurants, function(r, idx, list){ %>
-            <li><a href="<%= r.restaurant.detail_url %>"><strong><%= r.restaurant.title %></strong></a>: <%= r.restaurant.stars %> stars
-            <small><%= r.restaurant.hours %></small></li>
-        <% }); %>
-      </ul></p>
-      <% } %>
-      </div>
-      </div>
+        </div>
       </div>
     </script>
 
