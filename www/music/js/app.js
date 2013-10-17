@@ -45,17 +45,30 @@ $(document).ready(function(){
     // Get the day slice from the button. This is like 0 = Sunday, etc.
     var day_slice = $(this).attr('data-date-slice');
 
-    // Convert that day slice into the class of cards that we want to hide.
-    var day_slice_class = 'div.day-' + day_slice;
+    // add a class that shows that it's a selected button,
+    // remove that class from its siblings if it exists
+    $(this).addClass('selected').siblings('.selected').removeClass('selected');
 
-    // Hide all cards, since we only want to show certain ones.
-    $('div.card').hide();
-
-    // Show just our event days.
-    $(day_slice_class).show();
+    var day_slice_class;
+    if (day_slice < 7){
+      // Convert that day slice into the class of cards that we want to hide.
+      day_slice_class = 'div.day-' + day_slice;      
+      // Hide all cards, since we only want to show certain ones.
+      $('div.card').hide();
+      // Show just our event days.
+      $(day_slice_class).show();
+    } else { // SHOW ALL SHOW ALL SHOW ALL
+      $('div.card').show();
+    }
 
     // Count what's visible.
     count_visible_cards();
+  });
+
+  // Want Grub? Click the button and a list of restaurants will show up.
+  $('#wrap').on('click', '.restaurant-toggle', function(){
+    console.log($(this));
+    $(this).next('.restaurant-list').slideToggle('fast');
   });
 
   var count_visible_cards = function(){
@@ -64,7 +77,7 @@ $(document).ready(function(){
     var visible_cards = $('div.card').not(':hidden');
 
     // Write the card text to the H2 we previously made and replace text in there.
-    $('#count-target h2').text(String(visible_cards.length) + ' events happening.');
+    $('#count-target').text(String(visible_cards.length) + ' events happening');
   };
 
   $('.youtube').on('click', function(){
