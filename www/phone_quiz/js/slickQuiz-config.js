@@ -18,7 +18,7 @@ var quizJSON = {
             "a": [
                 {"option": "U.S.",      "correct": false},
                 {"option": "Somewhere else",     "correct": true},
-             
+
             ],
             "correct": "<p><span>DUMB</span> Consider designing for a dumbphone. There are 3.5 billion mobile connections in Africa, the Middle East, Latin America and the Asia-Pacific regions -- the majority of these connections are probably in dumbphones. </p>",
             "incorrect": "<p><span>SMART</span> According to Pew, 56 percent of all Americans now have a smartphone. But a significant chunk of Americans still rely on dumbphones. Go on to the next question to see what you should do. </p>" // no comma here
@@ -51,7 +51,7 @@ var quizJSON = {
             "a": [
                 {"option": "Over 65",    "correct": true},
                 {"option": "Under 65",     "correct": false},
-          
+
             ],
             "correct": "<p><span>DUMB</span> ou should probably assume your target audience has a dumbphone. According to the Pew Research Center, only 18% of American seniors have smartphones.</p>",
             "incorrect": "<p><span>SMART</span> The majority of people in the U.S. under 65 have smartphones. Younger audiences are more likely they are to have a smartphone-- a whopping 81 percent of Americans between 25 and 34 have smartphones</p>" // no comma here
